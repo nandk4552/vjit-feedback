@@ -9,7 +9,7 @@ const Forgetpassword = () => {
     const submitHandler = e =>{
         e.preventDefault();
         console.log(email)
-        axios.post("http://localhost:5000/forgetpassword",{email:email}).then(
+        axios.post(`${process.env.REACT_APP_API}/forgetpassword`,{email:email}).then(
             res => 
             {
                 if(res.data !== "user not found"){

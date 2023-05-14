@@ -28,7 +28,7 @@ const Admin = () => {
         
         if(username && passwordv)
         {
-        axios.post('http://localhost:5000/verifyadminlogin',{username:username,passwordv:passwordv}).then(
+        axios.post(`${process.env.REACT_APP_API}/verifyadminlogin`,{username:username,passwordv:passwordv}).then(
             res => { 
                 if(res.data.token)
                     {

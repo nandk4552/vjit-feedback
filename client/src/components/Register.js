@@ -37,7 +37,7 @@ const Register = () => {
         
         if(username && passwordv)
         {
-        axios.post('http://localhost:5000/verifyregisterlogin',{username:username,passwordv:passwordv}).then(
+        axios.post(`${process.env.REACT_APP_API}/verifyregisterlogin`,{username:username,passwordv:passwordv}).then(
             res => { 
                 console.log(res.data)
                 if(res.data === "success")
@@ -270,7 +270,7 @@ const Register = () => {
                     if(collegeId && branch && collegeId.length===10){
                         
                         if(check_roll(collegeId,branch)){
-                            axios.post('http://localhost:5000/register',data,{
+                            axios.post(`${process.env.REACT_APP_API}/register`,data,{
                             headers : {
                                 'x-token' : localStorage.getItem('token')
                             }

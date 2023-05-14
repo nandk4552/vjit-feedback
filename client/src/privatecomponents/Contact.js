@@ -17,7 +17,7 @@ const Contact = () => {
 
     useEffect(()=>{
 
-        axios.get('http://localhost:5000/getsupportteam').then(res => setSupportteam(res.data))
+        axios.get(`${process.env.REACT_APP_API}/getsupportteam`).then(res => setSupportteam(res.data))
 
         
 

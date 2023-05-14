@@ -14,7 +14,7 @@ const Resetpassword = () => {
         if(password === confirmpassword ){
             if(code.length===40){
                 if(password.length >= 6){
-                    axios.post(`http://localhost:5000/resetpassword/${code}`,{password:password,confirmpassword:confirmpassword}).then(
+                    axios.post(`${process.env.REACT_APP_API}/resetpassword/${code}`,{password:password,confirmpassword:confirmpassword}).then(
                     res => {
                         alert(res.data)
                         setAuth(true)

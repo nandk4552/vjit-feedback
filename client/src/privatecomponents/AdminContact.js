@@ -8,7 +8,7 @@ const AdminContact = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/getsupportteam")
+      .get(`${process.env.REACT_APP_API}/getsupportteam`)
       .then((res) => setSupportteam(res.data));
   }, []);
 

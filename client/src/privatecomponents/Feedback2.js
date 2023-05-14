@@ -47,7 +47,7 @@ const Feedback2 = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/checkingoe", {
+      .get(`${process.env.REACT_APP_API}/checkingoe`, {
         headers: {
           "x-token": localStorage.getItem("token"),
         },
@@ -76,7 +76,7 @@ const Feedback2 = () => {
       oeSubjSec
     ) {
       axios
-        .post("http://localhost:5000/comment2", rating, {
+        .post(`${process.env.REACT_APP_API}/comment2`, rating, {
           headers: {
             "x-token": localStorage.getItem("token"),
           },

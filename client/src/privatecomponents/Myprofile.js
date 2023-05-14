@@ -13,7 +13,7 @@ const Myprofile = () => {
     
 
     useEffect(()=>{
-        axios.get('http://localhost:5000/myprofile',{
+        axios.get(`${process.env.REACT_APP_API}/myprofile`,{
                 headers : {
                     'x-token' : localStorage.getItem('token')
                 }
@@ -24,7 +24,7 @@ const Myprofile = () => {
 
 
             
-        axios.get('http://localhost:5000/nooftotalfeedbacks',{
+        axios.get(`${process.env.REACT_APP_API}/nooftotalfeedbacks`,{
             headers : {
                 'x-token' : localStorage.getItem('token')
             }
@@ -33,7 +33,7 @@ const Myprofile = () => {
             })
 
 
-        axios.get('http://localhost:5000/noofgivenfeedbacks',{
+        axios.get(`${process.env.REACT_APP_API}/noofgivenfeedbacks`,{
             headers : {
                 'x-token' : localStorage.getItem('token')
             }

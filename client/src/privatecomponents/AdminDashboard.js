@@ -22,7 +22,7 @@ const AdminDashboard = () => {
 
     if (!teacher && !deptsec && !subj) {
       axios
-        .get("http://localhost:5000/allfeedbacks", {
+        .get(`${process.env.REACT_APP_API}/allfeedbacks`, {
           headers: {
             "x-token": localStorage.getItem("token"),
           },
@@ -92,7 +92,7 @@ const AdminDashboard = () => {
   };
   const getAllData = async () => {
     await axios
-      .get("http://localhost:5000/allfeedbacks", {
+      .get(`${process.env.REACT_APP_API}/allfeedbacks`, {
         headers: {
           "x-token": localStorage.getItem("token"),
         },

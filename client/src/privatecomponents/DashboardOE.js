@@ -14,7 +14,7 @@ const DashboardOE = () => {
     
     useEffect(()=>{
         console.log(localStorage.getItem('dept'));
-        axios.post("http://localhost:5000/getAllTeachers2",{dept : localStorage.getItem('dept')}).then(res => setDataa(res.data) )
+        axios.post(`${process.env.REACT_APP_API}/getAllTeachers2`,{dept : localStorage.getItem('dept')}).then(res => setDataa(res.data) )
 
         
     },[])

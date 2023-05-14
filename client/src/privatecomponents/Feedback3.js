@@ -41,7 +41,7 @@ const Feedback3 = () => {
     
     useEffect(()=>{
 
-        axios.get('http://localhost:5000/checkingoe',{
+        axios.get(`${process.env.REACT_APP_API}/checkingoe`,{
             headers : {
                 'x-token' : localStorage.getItem('token')
             }
@@ -63,7 +63,7 @@ const Feedback3 = () => {
      
 
         if( subjectKnowledge && communication && presentationSkills && punctuality && controlOverTheClass && audibility && professionalism && contentOfLecture && clarificationOfDoubts && explanationWithExamples && oeSubjSec ){
-            axios.post('http://localhost:5000/comment2',rating,{
+            axios.post(`${process.env.REACT_APP_API}/comment2`,rating,{
                 headers : {
                     'x-token' : localStorage.getItem('token')
                 }
