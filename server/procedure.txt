@@ -1,0 +1,8 @@
+step 1 - git cloned tharun anna feedback project
+step 2 - added my mongodb database
+step 3 - installed both server and client node modules
+
+## logic to search
+DB  SRInivas  -> srinivas
+Search Srinivas -> srinivas
+Search Sri -> sri
