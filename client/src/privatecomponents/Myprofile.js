@@ -1,89 +1,103 @@
-import React,{useState,useEffect} from 'react'
-import axios from 'axios';
-import { Navigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Navigate } from "react-router-dom";
 
-import Header from '../headers/Header';
-import "./Myprofile.css"
+import Header from "../headers/Header";
+import "./Myprofile.css";
+import Footer from "./Footer";
 
 const Myprofile = () => {
-    const [data,setData] = useState (null);
-    const [total,setTotal] = useState("");
-    const [given,setGiven] = useState("");
+  const [data, setData] = useState(null);
+  const [total, setTotal] = useState("");
+  const [given, setGiven] = useState("");
 
-    
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API}/myprofile`, {
+        headers: {
+          "x-token": localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        setData(res.data);
+      });
 
-    useEffect(()=>{
-        axios.get(`${process.env.REACT_APP_API}/myprofile`,{
-                headers : {
-                    'x-token' : localStorage.getItem('token')
-                }
-            }).then(res => {
-                setData(res.data);
-              
-            })
+    axios
+      .get(`${process.env.REACT_APP_API}/nooftotalfeedbacks`, {
+        headers: {
+          "x-token": localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        setTotal(res.data.length);
+      });
 
+    axios
+      .get(`${process.env.REACT_APP_API}/noofgivenfeedbacks`, {
+        headers: {
+          "x-token": localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        setGiven(res.data.length);
+      });
+  }, []);
 
-            
-        axios.get(`${process.env.REACT_APP_API}/nooftotalfeedbacks`,{
-            headers : {
-                'x-token' : localStorage.getItem('token')
-            }
-            }).then(res => {
-                    setTotal(res.data.length)                
-            })
+  if (!localStorage.getItem("token")) {
+    return <Navigate to="/login" />;
+  }
 
+  return (
+    <div>
+      <Header />
 
-        axios.get(`${process.env.REACT_APP_API}/noofgivenfeedbacks`,{
-            headers : {
-                'x-token' : localStorage.getItem('token')
-            }
-            }).then(res => {
-                setGiven(res.data.length);
-                
-            })
-    },[])
+      <h1 className="orange mt-4  fw-bold text-decoration-underline text-center text-uppercase">
+        My Profile{" "}
+      </h1>
 
+      <div className="container d-flex align-items-center justify-content-center my-3 ">
+        {data ? (
+          <div className="card shadow-sm p-3" style={{ width: "28rem" }}>
+            <img
+              src="https://cdn.pixabay.com/photo/2016/03/23/22/26/user-1275780_960_720.png"
+              className="card-img-top"
+              alt="user"
+            />
+            <div className="card-body">
+              <h3 className="card-title fw-bold">{data.fullname}</h3>
+              <p className="card-text fs-5">
+                <span className="fw-bold orange">Roll No:</span>
+                {data.collegeId}
+              </p>
+              <p className="card-text fs-5 ">
+                <span className="fw-bold orange">Branch:</span>
+                {data.branch}
+              </p>
+              <p className="card-text fs-5 ">
+                <span className="fw-bold orange">Email:</span>
+                {data.email}
+              </p>
+              <p className="card-text fs-5 ">
+                <span className="fw-bold orange">Mobile:</span>
+                {data.mobile}
+              </p>
+              <h5>
+                Number of feedbacks exists :{" "}
+                <span className="fs-2 fw-bolder ">{total - given}</span>
+              </h5>
+              <h5>
+                Number of feedbacks given :{" "}
+                <span className="fs-2 fw-bolder ">{given}</span>
+              </h5>
+            </div>
+          </div>
+        ) : (
+          <h1>Loading...</h1>
+        )}
+      </div>
+      <Footer />
+    </div>
+  );
+};
 
-
-
-    if(!localStorage.getItem('token')){
-        return <Navigate to='/login' />
-    }
-    
-
-    return (
-        <div>
-            <Header />
-
-            {data ?
-                <div className="profile bg-light card " style={{"margin":"10px"}}>
-                    <center>
-                            <img 
-                                className="round-img"
-                                src="https://cdn.pixabay.com/photo/2016/03/23/22/26/user-1275780_960_720.png"
-                                height="250" width="450"
-                                alt="userPhoto"
-                            />  
-                            <div>
-                                <h2 style={{"color":"orange"}}><b>{data.fullname}</b></h2>
-                                <h3>{data.collegeId}</h3>
-                                <h4>{data.branch}</h4>
-                                <p>{data.email}</p>
-                                <p><b>Mobile : </b>{data.mobile}</p>
-                                <h5>Number of feedbacks exists : <span style={{color:"red", fontSize:"40px"}}>{total}</span></h5>
-                                <h5>Number of feedbacks given : <span style={{color:"red", fontSize:"40px"}}>{given}</span></h5>
-                            </div>
-                    </center>
-                </div>
-                :
-                <h1>Loading...</h1>
-            }
-
-
-            <br /><br /><br /><br /><br />
-
-        </div>
-    )
-}
-
-export default Myprofile
+export default Myprofile;

@@ -1,6 +1,6 @@
-.image{
+.image {
     background-image: url(./backgroundimg.jpeg);
     background-size: cover;
     height: 140%;
-    width: 99%;
+    width: 100%;
 }

@@ -16,6 +16,7 @@ import Instructions from "./privatecomponents/Instructions";
 import "./App.css";
 import Feedback2 from "./privatecomponents/Feedback2";
 import Feedback3 from "./privatecomponents/Feedback3";
+import Pagenotfound from "./pages/pagenotfound";
 
 const App = () => {
   return (
@@ -38,6 +39,9 @@ const App = () => {
           <Route path="/admin" exact element={<Admin />} />
           <Route path="/adminDashboard" exact element={<AdminDashboard />} />
           <Route path="/admincontact" exact element={<AdminContact />} />
+          
+          {/* if non of the above routes doesnot work we go to pagenotfound component page */}
+          <Route path="/*" element={<Pagenotfound/>} />
         </Routes>
       </BrowserRouter>
     </div>

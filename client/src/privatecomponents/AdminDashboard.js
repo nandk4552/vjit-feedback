@@ -6,7 +6,9 @@ import AdminHeader from "../headers/AdminHeader";
 import "./Dashboard.css";
 
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
-
+import AdminFooter from "./Footer";
+import { BiRefresh } from "react-icons/bi";
+import { BiSearchAlt2 } from "react-icons/bi";
 const AdminDashboard = () => {
   const [data, setData] = useState([]);
 
@@ -119,56 +121,61 @@ const AdminDashboard = () => {
       <AdminHeader />
 
       <section className="container">
-        <h1 className="large " style={{ color: "orange", marginTop: "20px" }}>
-          feedback portal
+        <h1 className="orange mt-4 text-capitalize fw-bold text-decoration-underline text-center">
+          Admin Dashboard
         </h1>
 
-        <nav className="navbar navbar-light">
-          <div className="container-fluid">
-            <h5 className="navbar-brand">
-              Browse and find student feedback{" "}
-              <span style={{ color: "blue" }}> 🤝 </span>
-            </h5>
+        <h5 className="navbar-brand text-center text-secondary">
+          Browse and find student feedback <span> 🤝 </span>
+        </h5>
+        <form
+          onSubmit={searchHandler}
+          className=" rounded border p-2 d-lg-flex align-items-center justify-content-left"
+        >
+          <div className="d-lg-block d-flex flex-column">
+            <input
+              type="text"
+              value={teacher}
+              onChange={(e) => setTeacher(e.target.value)}
+              placeholder="Teacher"
+              aria-label="Search"
+              className="m-1 rounded shadow-sm border p-1"
+            />
+            <input
+              type="text"
+              value={deptsec}
+              onChange={(e) => setDeptsec(e.target.value)}
+              placeholder="dept section "
+              aria-label="Search"
+              className="m-1 rounded shadow-sm border p-1"
+            />
+            <input
+              type="text"
+              value={subj}
+              onChange={(e) => setSubj(e.target.value)}
+              placeholder="subject"
+              aria-label="Search"
+              className="m-1 rounded shadow-sm border p-1 "
+            />
           </div>
-        </nav>
-
-        <form onSubmit={searchHandler}>
-          <input
-            type="text"
-            value={teacher}
-            onChange={(e) => setTeacher(e.target.value)}
-            placeholder="Teacher "
-            aria-label="Search"
-          />
-          &nbsp;&nbsp;&nbsp;
-          <input
-            type="text"
-            value={deptsec}
-            onChange={(e) => setDeptsec(e.target.value)}
-            placeholder="dept section "
-            aria-label="Search"
-          />
-          &nbsp;&nbsp;&nbsp;
-          <input
-            type="text"
-            value={subj}
-            onChange={(e) => setSubj(e.target.value)}
-            placeholder="subject"
-            aria-label="Search"
-          />
-          &nbsp;&nbsp;&nbsp;
-          <input
-            className="btn btn-outline-success"
-            type="submit"
-            value="search"
-          />
-          <button className="btn btn-primary mx-2" onClick={handleRefresh}>
-            refresh
-          </button>
+          <div className="mx-1 my-2 d-flex align-items-center justify-content-left">
+            <div className="bg-warning border-success px-1 rounded">
+              <input
+                className="btn-sm btn-warning"
+                type="submit"
+                value={`Search`}
+              />
+              <BiSearchAlt2 className="ms-1" />
+            </div>
+            <button className="btn-sm btn-primary mx-2" onClick={handleRefresh}>
+              Refresh
+              <BiRefresh className="ms-1" />
+            </button>
+          </div>
         </form>
         <br />
 
-        <h1>
+        <h5 className="text-capitalize">
           Total Student profiles :{" "}
           <span style={{ color: "red" }}>
             {
@@ -181,11 +188,11 @@ const AdminDashboard = () => {
               ].length
             }
           </span>
-        </h1>
+        </h5>
         {/* if datat is there show export button else null */}
         {data.length >= 1 ? (
           <ReactHTMLTableToExcel
-            className="btn btn-success"
+            className="btn btn-success btn-sm "
             table="stocksData"
             filename="reportexcel"
             sheet="sheet"
@@ -195,61 +202,58 @@ const AdminDashboard = () => {
 
         {data.length >= 1 ? (
           <center>
-            <table className="table" id="stocksData">
-              <thead>
-                <tr>
-                  <th scope="col">Index</th>
-                  <th scope="col">Teacher</th>
-                  <th scope="col">Dept</th>
-                  {/* <th scope="col">Student</th>
+            <div class="table-responsive my-3">
+              <table className="table" id="stocksData">
+                <thead>
+                  <tr>
+                    <th scope="col">Index</th>
+                    <th scope="col">Teacher</th>
+                    <th scope="col">Dept</th>
+                    {/* <th scope="col">Student</th>
                         <th scope="col">ClgID</th> */}
-                  <th scope="col">Subject</th>
-
-                  <th scope="col">subjectKnowledge </th>
-                  <th scope="col">communication</th>
-                  <th scope="col">presentationSkills</th>
-                  <th scope="col">punctuality</th>
-                  <th scope="col">controlOverTheClass</th>
-                  <th scope="col">audibility</th>
-
-                  <th scope="col">professionalism</th>
-                  <th scope="col">contentOfLecture</th>
-                  <th scope="col">clarificationOfDoubts</th>
-                  <th scope="col">explanationWithExamples</th>
-                  <th scope="col">Comment</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((singleitem, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{singleitem.teacherName}</td>
-                    <td>{singleitem.studentclass}</td>
-                    {/* <td>{singleitem.studentName}</td>
-                        <td>{singleitem.studentclgId}</td> */}
-                    <td>{singleitem.subject}</td>
-
-                    <td>{singleitem.subjectKnowledge}</td>
-                    <td>{singleitem.communication}</td>
-                    <td>{singleitem.presentationSkills}</td>
-                    <td>{singleitem.punctuality}</td>
-                    <td>{singleitem.controlOverTheClass}</td>
-
-                    <td>{singleitem.audibility}</td>
-                    <td>{singleitem.professionalism}</td>
-                    <td>{singleitem.contentOfLecture}</td>
-                    <td>{singleitem.clarificationOfDoubts}</td>
-                    <td>{singleitem.explanationWithExamples}</td>
-                    <td>{singleitem.comment}</td>
+                    <th scope="col">Subject</th>
+                    <th scope="col">subjectKnowledge </th>
+                    <th scope="col">communication</th>
+                    <th scope="col">presentationSkills</th>
+                    <th scope="col">punctuality</th>
+                    <th scope="col">controlOverTheClass</th>
+                    <th scope="col">audibility</th>
+                    <th scope="col">professionalism</th>
+                    <th scope="col">contentOfLecture</th>
+                    <th scope="col">clarificationOfDoubts</th>
+                    <th scope="col">explanationWithExamples</th>
+                    <th scope="col">Comment</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {data.map((singleitem, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{singleitem.teacherName}</td>
+                      <td>{singleitem.studentclass}</td>
+                      {/* <td>{singleitem.studentName}</td>
+                        <td>{singleitem.studentclgId}</td> */}
+                      <td>{singleitem.subject}</td>
+                      <td>{singleitem.subjectKnowledge}</td>
+                      <td>{singleitem.communication}</td>
+                      <td>{singleitem.presentationSkills}</td>
+                      <td>{singleitem.punctuality}</td>
+                      <td>{singleitem.controlOverTheClass}</td>
+                      <td>{singleitem.audibility}</td>
+                      <td>{singleitem.professionalism}</td>
+                      <td>{singleitem.contentOfLecture}</td>
+                      <td>{singleitem.clarificationOfDoubts}</td>
+                      <td>{singleitem.explanationWithExamples}</td>
+                      <td>{singleitem.comment}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </center>
         ) : (
           <h4>Search with valid fields</h4>
         )}
-
         <br />
         <br />
         <br />
@@ -258,6 +262,7 @@ const AdminDashboard = () => {
         <br />
         <br />
       </section>
+      <AdminFooter />
     </div>
   );
 };

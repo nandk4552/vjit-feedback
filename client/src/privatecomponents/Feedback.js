@@ -45,7 +45,7 @@ const Feedback = () => {
   useEffect(() => {
     console.log(localStorage.getItem("dept"));
     axios
-      .get(`https://vjitfeedback2.cyclic.app/checkrelation/${tid}`, {
+      .get(`${process.env.REACT_APP_API}/checkrelation/${tid}`, {
         headers: {
           "x-token": localStorage.getItem("token"),
         },
@@ -56,7 +56,7 @@ const Feedback = () => {
         }
 
         axios
-          .get(`https://vjitfeedback2.cyclic.app/findteacher/${tid}`)
+          .get(`${process.env.REACT_APP_API}/findteacher/${tid}`)
           .then((res) => setData(res.data));
       });
   }, []);
@@ -81,15 +81,11 @@ const Feedback = () => {
       explanationWithExamples
     ) {
       axios
-        .post(
-          `https://vjitfeedback2.cyclic.app/comment/${data.subject}`,
-          rating,
-          {
-            headers: {
-              "x-token": localStorage.getItem("token"),
-            },
-          }
-        )
+        .post(`${process.env.REACT_APP_API}/comment/${data.subject}`, rating, {
+          headers: {
+            "x-token": localStorage.getItem("token"),
+          },
+        })
         .then((res) => alert(res.data.message));
 
       setNavi(true);
@@ -111,10 +107,6 @@ const Feedback = () => {
       <Header />
 
       <section className="container">
-        <h1 className="large " style={{ color: "orange", marginTop: "20px" }}>
-          feedback portal
-        </h1>
-
         <div className="profiles">
           <center>
             <img

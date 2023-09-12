@@ -1,46 +1,81 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-
-
-
+import React from "react";
+import { Link, NavLink } from "react-router-dom";
+import { FiLogOut } from "react-icons/fi";
 const Header = () => {
-    
-    return (
-        <nav className="navbar bg-dark justify-content-center" style={{backgroundColor:"grey"}}>
-
-            
-            <li className="nav-link ">
-                <NavLink to="/Dashboard" className="nav-link" style={({ isActive }) => ({ color: isActive ? 'orange' : 'white' })}>
-                    Feedback
+  return (
+    <>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div className="container-fluid">
+          <Link
+            className="navbar-brand display-6 fw-bolder text-uppercase orange"
+            to="/Dashboard"
+          >
+            VJIT Feedback Portal
+          </Link>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarText"
+            aria-controls="navbarText"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon" />
+          </button>
+          <div className="collapse navbar-collapse" id="navbarText">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <NavLink
+                  to="/Dashboard"
+                  className="nav-link"
+                  style={({ isActive }) => ({
+                    color: isActive ? "orange" : "white",
+                  })}
+                >
+                  Feedback
                 </NavLink>
-            </li>
+              </li>
 
-          
-
-            <li className="nav-link ">
-                <NavLink to="/myprofile" className="nav-link" style={({ isActive }) => ({ color: isActive ? 'orange' : 'white' })}>
-                    My Profile
+              <li className="nav-item ">
+                <NavLink
+                  to="/myprofile"
+                  className="nav-link"
+                  style={({ isActive }) => ({
+                    color: isActive ? "orange" : "white",
+                  })}
+                >
+                  My Profile
                 </NavLink>
-            </li>
-           
+              </li>
 
-
-           
-
-            <li className="nav-link">
-                <NavLink to="/contact" className="nav-link" style={({ isActive }) => ({ color: isActive ? 'orange' : 'white' })}>
-                    contact us
+              <li className="nav-item">
+                <NavLink
+                  to="/contact"
+                  className="nav-link"
+                  style={({ isActive }) => ({
+                    color: isActive ? "orange" : "white",
+                  })}
+                >
+                  Contact Us
                 </NavLink>
-            </li>
-            
-            <li className="nav-link">
-                <NavLink to="/login" onClick={()=>localStorage.clear()} style={{"textDecoration": "none"}}>
-                    Logout
-                </NavLink>
-            </li>
+              </li>
+            </ul>
+            <span className="navbar-text">
+              <Link
+                to="/login"
+                onClick={() => localStorage.clear()}
+                className="btn-sm btn-danger text-white text-decoration-none px-3 py-2 fw-normal"
+              >
+                Logout
+                <FiLogOut className="ms-2" />
+              </Link>
+            </span>
+          </div>
+        </div>
+      </nav>
+    </>
+  );
+};
 
-        </nav>
-    )
-}
-
-export default Header
+export default Header;

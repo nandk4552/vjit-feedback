@@ -1,13 +1,26 @@
-@media(max-width:400px){
-    .round-img
-    {
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.rotate-icon {
+    animation: rotate 1s linear infinite;
+}
+
+@media(max-width:400px) {
+    .round-img {
         width: 5rem;
         height: auto;
     }
 }
-@media(max-width:700px){
-    .round-img
-    {
+
+@media(max-width:700px) {
+    .round-img {
         width: 8rem;
         height: auto;
     }
