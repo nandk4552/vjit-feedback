@@ -27,7 +27,23 @@
 .App-link {
   color: #61dafb;
 }
-
+.app-blue {
+  color: #073050 !important;
+}
+.app-red {
+  color: #da2032 !important
+}
+.bg-blue{
+  background-color: #073050 !important;
+}
+.btn-blue {
+  background-color: #16476d !important;
+  color: #fff !important;
+}
+.btn-blue:hover {
+  background-color: #073050 !important;
+  color: #fff !important;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -44,7 +60,6 @@
 }
 
 .logos {
-  background-color: rgb(227, 240, 252);
   width: 100%;
   z-index: 2;
   height: 6rem;
@@ -61,16 +76,23 @@
   width: 15rem;
 }
 
-.btn {
-  border: none !important;
+
+.btn-outline-danger{
+  border: 1px solid red !important;
+}
+/* .btn-red {
+  border: 1px solid red !important;
+  color: red !important;
+  transition: none !important;
+} */
+.btn-red {
+  background-color:#da2032 !important;
+  color: #fff !important;
+  transition: none !important;
+
 }
 
 
-.btn:hover {
-  background-color: orange;
-  color: black;
-  border: none;
-}
 
 .col:hover {
   color: black;

@@ -51,7 +51,7 @@ const Myprofile = () => {
     <div>
       <Header />
 
-      <h1 className="orange mt-4  fw-bold text-decoration-underline text-center text-uppercase">
+      <h1 className="text-danger mt-4  fw-bold text-decoration-underline text-center text-uppercase">
         My Profile{" "}
       </h1>
 
@@ -66,19 +66,19 @@ const Myprofile = () => {
             <div className="card-body">
               <h3 className="card-title fw-bold">{data.fullname}</h3>
               <p className="card-text fs-5">
-                <span className="fw-bold orange">Roll No:</span>
+                <span className="fw-bold app-red">Roll No:</span>
                 {data.collegeId}
               </p>
               <p className="card-text fs-5 ">
-                <span className="fw-bold orange">Branch:</span>
+                <span className="fw-bold app-red">Branch:</span>
                 {data.branch}
               </p>
               <p className="card-text fs-5 ">
-                <span className="fw-bold orange">Email:</span>
+                <span className="fw-bold app-red">Email:</span>
                 {data.email}
               </p>
               <p className="card-text fs-5 ">
-                <span className="fw-bold orange">Mobile:</span>
+                <span className="fw-bold app-red">Mobile:</span>
                 {data.mobile}
               </p>
               <h5>

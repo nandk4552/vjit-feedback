@@ -18,7 +18,7 @@ const Contact = () => {
     <div>
       <Header />
       <section className="container">
-        <h1 className="orange mt-4 text-uppercase fw-bold text-decoration-underline text-center">
+        <h1 className="text-danger mt-4 text-uppercase fw-bold text-decoration-underline text-center">
           Supporting Team
         </h1>
         <p className="navbar-brand fw-normal text-center text-secondary fw-normal">

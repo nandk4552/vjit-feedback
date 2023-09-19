@@ -16,8 +16,8 @@ const AdminContact = () => {
   return (
     <div>
       <AdminHeader />
-      <section className="container">
-        <h1 className="orange mt-4 text-capitalize fw-bold text-decoration-underline text-center">
+      <section className="container min-vh-100">
+        <h1 className="app-red mt-4 text-capitalize fw-bold text-decoration-underline text-center">
           Supporting Team
         </h1>
         <p className="navbar-brand text-center text-secondary fw-normal">

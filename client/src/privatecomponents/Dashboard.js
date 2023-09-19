@@ -37,10 +37,7 @@ const Dashboard = () => {
             {data.length >= 1 ? (
               data.map((profile, index) => (
                 <div className="col-md-4" key={index}>
-                  <div
-                    className="card shadow-sm p-2"
-                    style={{ width: "20rem" }}
-                  >
+                  <div className="card shadow p-2" style={{ width: "20rem" }}>
                     <img
                       src="https://cdn.pixabay.com/photo/2016/03/23/22/26/user-1275780_960_720.png"
                       className="card-img-top"
@@ -49,22 +46,22 @@ const Dashboard = () => {
                     <div className="card-body">
                       <h4 className="card-title"> {profile.teacherName}</h4>
                       <p>
-                        <span className="fw-bold orange">Mobile No: </span>
+                        <span className="fw-bold text-danger">Mobile No: </span>
                         {profile.teachermob}
                       </p>
                       <p>
-                        <span className="fw-bold orange text-truncate">
+                        <span className="fw-bold text-danger text-truncate">
                           Email:{" "}
                         </span>
                         {profile.teacheremail}
                       </p>
                       <p className="card-text fw-bold">
-                        <span className="fw-bold orange">Subject: </span>
+                        <span className="fw-bold text-danger">Subject: </span>
                         {profile.subject}
                       </p>
                       <Link
                         to={`/feedback/${profile.teacherName}/${profile._id}`}
-                        className="btn btn-primary"
+                        className="btn btn-primary btn-blue"
                       >
                         Feedback
                         <VscFeedback className="mb-1 ms-1" />

@@ -20,14 +20,14 @@ const Home = () => {
             <p className="home-base text-secondary fw-bold">
               create a student profile and feedback on your teachers
             </p>
-            <Link to="/admin" className="btn btn-primary text-center">
+            <Link to="/admin" className="btn btn-red">
               <RiAdminLine className="me-1" />
               Admin
             </Link>
             &nbsp;&nbsp;&nbsp;
-            <Link to="/login" className="btn btn-success text-center">
+            <Link to="/login" className="  text-center btn btn-primary text-center bg-blue">
               <BiUser className="me-1" />
-              Login
+              Student
             </Link>
           </section>
         </div>

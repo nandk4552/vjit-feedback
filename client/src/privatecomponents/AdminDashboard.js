@@ -9,8 +9,11 @@ import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import AdminFooter from "./Footer";
 import { BiRefresh } from "react-icons/bi";
 import { BiSearchAlt2 } from "react-icons/bi";
+import toast from "react-hot-toast";
+import Spinner from "../components/Spinner";
 const AdminDashboard = () => {
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [teacher, setTeacher] = useState("");
   const [deptsec, setDeptsec] = useState("");
@@ -29,7 +32,14 @@ const AdminDashboard = () => {
             "x-token": localStorage.getItem("token"),
           },
         })
-        .then((res) => setData(res.data));
+        .then((res) => {
+          setData(res.data);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching student report data:", error);
+          setIsLoading(false);
+        });
     }
 
     if (teacher && !deptsec && !subj) {
@@ -101,6 +111,7 @@ const AdminDashboard = () => {
       })
       .then((res) => {
         setData(res.data);
+        setIsLoading(false);
       });
   };
   useEffect(() => {
@@ -111,17 +122,21 @@ const AdminDashboard = () => {
     return <Navigate to="/login" />;
   }
   const handleRefresh = () => {
+    setIsLoading(true);
     setTeacher("");
     setSubj("");
     setDeptsec("");
     getAllData();
+    toast.success("Refreshing...");
+    setIsLoading(false);
   };
+
   return (
     <div>
       <AdminHeader />
 
       <section className="container">
-        <h1 className="orange mt-4 text-capitalize fw-bold text-decoration-underline text-center">
+        <h1 className="app-red mt-4 text-capitalize fw-bold text-decoration-underline text-center">
           Admin Dashboard
         </h1>
 
@@ -158,16 +173,20 @@ const AdminDashboard = () => {
               className="m-1 rounded shadow-sm border p-1 "
             />
           </div>
+
           <div className="mx-1 my-2 d-flex align-items-center justify-content-left">
-            <div className="bg-warning border-success px-1 rounded">
+            <div className="bg-danger border-success px-1 rounded">
               <input
-                className="btn-sm btn-warning"
+                className="btn-sm btn-danger"
                 type="submit"
                 value={`Search`}
               />
-              <BiSearchAlt2 className="ms-1" />
+              <BiSearchAlt2 className="ms-1 text-light" />
             </div>
-            <button className="btn-sm btn-primary mx-2" onClick={handleRefresh}>
+            <button
+              className="btn-sm btn-primary mx-2 btn-blue"
+              onClick={handleRefresh}
+            >
               Refresh
               <BiRefresh className="ms-1" />
             </button>
@@ -190,6 +209,7 @@ const AdminDashboard = () => {
           </span>
         </h5>
         {/* if datat is there show export button else null */}
+
         {data.length >= 1 ? (
           <ReactHTMLTableToExcel
             className="btn btn-success btn-sm "
@@ -200,17 +220,19 @@ const AdminDashboard = () => {
           />
         ) : null}
 
-        {data.length >= 1 ? (
+        {isLoading ? (
+          <Spinner />
+        ) : data.length >= 1 ? (
           <center>
             <div class="table-responsive my-3">
               <table className="table" id="stocksData">
                 <thead>
                   <tr>
-                    <th scope="col">Index</th>
+                    <th scope="col">S.No</th>
                     <th scope="col">Teacher</th>
                     <th scope="col">Dept</th>
                     {/* <th scope="col">Student</th>
-                        <th scope="col">ClgID</th> */}
+                    <th scope="col">ClgID</th> */}
                     <th scope="col">Subject</th>
                     <th scope="col">subjectKnowledge </th>
                     <th scope="col">communication</th>
@@ -232,7 +254,7 @@ const AdminDashboard = () => {
                       <td>{singleitem.teacherName}</td>
                       <td>{singleitem.studentclass}</td>
                       {/* <td>{singleitem.studentName}</td>
-                        <td>{singleitem.studentclgId}</td> */}
+                      <td>{singleitem.studentclgId}</td> */}
                       <td>{singleitem.subject}</td>
                       <td>{singleitem.subjectKnowledge}</td>
                       <td>{singleitem.communication}</td>

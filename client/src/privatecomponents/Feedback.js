@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import axios from "axios";
-
 import Header from "../headers/Header";
 import "./Dashboard.css";
+import toast from "react-hot-toast";
+import Footer from "./Footer";
 
 const Feedback = () => {
   const { tname, tid } = useParams();
@@ -86,11 +87,11 @@ const Feedback = () => {
             "x-token": localStorage.getItem("token"),
           },
         })
-        .then((res) => alert(res.data.message));
+        .then((res) => toast.success(res.data.message));
 
       setNavi(true);
     } else {
-      alert("fill complete info ");
+      toast.error("fill complete info..!");
     }
   };
 
@@ -106,7 +107,7 @@ const Feedback = () => {
     <div>
       <Header />
 
-      <section className="container">
+      <section className="container my-3 mt-5">
         <div className="profiles">
           <center>
             <img
@@ -118,7 +119,7 @@ const Feedback = () => {
             />
 
             <div>
-              <h2 style={{ color: "green" }}>{data.teacherName}</h2>
+              <h2 className="app-red fw-bold">{data.teacherName}</h2>
               <h3>{data.Department}</h3>
               <p>{data.teachermob}</p>
               <p>{data.teacheremail}</p>
@@ -405,7 +406,7 @@ const Feedback = () => {
               <input
                 type="submit"
                 onClick={submitHandler}
-                className="btn btn-success"
+                className="btn btn-success btn-blue"
                 value="submit feedback"
               />
             </center>
@@ -417,15 +418,8 @@ const Feedback = () => {
             Sorry, You have already given feedback to this profile
           </h1>
         )}
-
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
       </section>
+      <Footer />
     </div>
   );
 };

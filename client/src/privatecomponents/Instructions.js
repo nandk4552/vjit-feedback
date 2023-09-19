@@ -83,7 +83,9 @@ const Instructions = () => {
               checked={isChecked}
               onChange={() => setIsChecked(!isChecked)}
             />
-            <label className="form-check-label">I agree to the terms</label>
+            <label className="form-check-label">
+              I have read and understood the instructions.
+            </label>
           </div>
           <Link
             to="/dashboard"

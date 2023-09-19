@@ -4,13 +4,13 @@ import { FiLogOut } from "react-icons/fi";
 const AdminHeader = () => {
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark bg-blue">
         <div className="container-fluid">
           <Link
             className="navbar-brand display-6 fw-bolder text-uppercase orange"
             to="/adminDashboard"
           >
-            Feedback Portal
+            VJIT Feedback Portal
           </Link>
           <button
             className="navbar-toggler"
@@ -30,7 +30,7 @@ const AdminHeader = () => {
                   to="/adminDashboard"
                   className="nav-link text-capitalize"
                   style={({ isActive }) => ({
-                    color: isActive ? "orange" : "white",
+                    color: isActive ? "red" : "white",
                   })}
                 >
                   Complete feedback info
@@ -38,10 +38,21 @@ const AdminHeader = () => {
               </li>
               <li className="nav-item">
                 <NavLink
+                  to="/faculty-report"
+                  className="nav-link text-capitalize"
+                  style={({ isActive }) => ({
+                    color: isActive ? "red" : "white",
+                  })}
+                >
+                  Faculty Report
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
                   to="/admincontact"
                   className="nav-link text-capitalize"
                   style={({ isActive }) => ({
-                    color: isActive ? "orange" : "white",
+                    color: isActive ? "red" : "white",
                   })}
                 >
                   contact us

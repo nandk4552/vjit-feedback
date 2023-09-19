@@ -4,6 +4,8 @@ import axios from "axios";
 import "../App.css";
 import "./Register.css";
 import { PiStudent } from "react-icons/pi";
+import toast from "react-hot-toast";
+import Logo from "./Logo";
 
 const Admin = () => {
   const [info, setInfo] = useState({
@@ -31,14 +33,14 @@ const Admin = () => {
         .then((res) => {
           if (res.data.token) {
             localStorage.setItem("token", res.data.token);
-
             setAllow(true);
+            toast.success("Login Success!");
           } else {
-            alert(res.data);
+            toast.error(res.data);
           }
         });
     } else {
-      alert("inValid Details");
+      toast.error("inValid Details");
     }
   };
 
@@ -50,30 +52,30 @@ const Admin = () => {
   }
   return (
     <div className="image">
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      {/* <nav className="navbar navbar-expand-lg navbar-dark bg-dark bg-blue">
         <div className="container-fluid">
           <Link
-            className="navbar-brand display-6 fw-bolder text-uppercase orange"
+            className="navbar-brand display-6 fw-bolder text-uppercase "
             to="/"
           >
-            Feedback Portal
+            VJIT Feedback Portal
           </Link>
           <span className="navbar-text d-flex align-items-center justify-content-center">
             <Link
               to="/login"
-              className="btn-sm btn-warning text-dark text-decoration-none px-3 py-2 "
+              className="btn-sm btn-danger  text-white text-decoration-none px-3 py-2 "
             >
               <PiStudent className="me-1" />
               Student Login
             </Link>
           </span>
         </div>
-      </nav>
-
+      </nav> */}
+      <Logo />
       <section className="container">
-        <h2 className=" orange text-uppercase fw-bold mt-5">Admin Sign In</h2>
+        <h2 className=" app-red text-uppercase fw-bold mt-5">Admin Sign In</h2>
         <p
-          className="py-2 text-black-50 fw-lighter"
+          className="py-2 text-black-50 fw-bold"
           style={{ paddingBottom: "1rem" }}
         >
           Only Admins are allowed
@@ -103,7 +105,7 @@ const Admin = () => {
           <br />
           <input
             type="submit"
-            className="btn btn-primary ms-1 px-3 py-2"
+            className="btn btn-primary ms-1 px-3 py-2 btn-blue"
             value="verify Admin"
             style={{ marginBottom: "1rem" }}
           />

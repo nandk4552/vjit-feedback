@@ -3,6 +3,8 @@ import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import "./Login.css";
 import UserHeader from "../headers/UserHeader";
+import toast from "react-hot-toast";
+import Logo from "./Logo";
 
 const Login = () => {
   const [auth, setAuth] = useState(false);
@@ -23,8 +25,9 @@ const Login = () => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("dept", res.data.id);
         setAuth(true);
+        toast.success("Login Successfully...!");
       } else {
-        alert(res.data);
+        toast.error(res.data);
       }
     });
   };
@@ -38,12 +41,13 @@ const Login = () => {
   }
   return (
     <div className="con">
-      <UserHeader />
+      <Logo />
+      {/* <UserHeader /> */}
 
       <div className="box shadow">
         <section className="container">
           <h1
-            className="large text-uppercase fw-bold py-2"
+            className="large text-uppercase fw-bold py-2 app-red"
             style={{
               color: "orange",
               marginTop: "100px",
@@ -53,7 +57,7 @@ const Login = () => {
             Sign In
           </h1>
           <p className="lead text-secondary fst-italic">
-            <b>Sign into Your Account</b>
+            <b>Sign into feedback portal</b>
           </p>
           <form onSubmit={submitHandler} className="container">
             <input
@@ -80,7 +84,7 @@ const Login = () => {
             <br />
             <input
               type="submit"
-              className="btn btn-primary px-4 py-2 shadow-sm mb-3"
+              className="btn btn-primary btn-blue px-4 py-2 shadow-sm mb-3"
               value="login"
             />
           </form>

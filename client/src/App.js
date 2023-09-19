@@ -17,10 +17,13 @@ import "./App.css";
 import Feedback2 from "./privatecomponents/Feedback2";
 import Feedback3 from "./privatecomponents/Feedback3";
 import Pagenotfound from "./pages/pagenotfound";
+import FacultyReport from "./privatecomponents/FacultyReport";
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   return (
     <div>
+      <Toaster/>
       <BrowserRouter>
         <Routes>
           <Route path="/" exact element={<Home />} />
@@ -37,6 +40,7 @@ const App = () => {
           <Route path="/contact" exact element={<Contact />} />
           {/* admin */}
           <Route path="/admin" exact element={<Admin />} />
+          <Route path="/faculty-report" exact element={<FacultyReport />} />
           <Route path="/adminDashboard" exact element={<AdminDashboard />} />
           <Route path="/admincontact" exact element={<AdminContact />} />
           

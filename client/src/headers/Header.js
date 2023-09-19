@@ -1,10 +1,15 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
+import toast from "react-hot-toast";
 const Header = () => {
+  const handleLogout = () => {
+    localStorage.clear();
+    toast.success("Logout Successfully...!");
+  };
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark bg-blue">
         <div className="container-fluid">
           <Link
             className="navbar-brand display-6 fw-bolder text-uppercase orange"
@@ -30,7 +35,7 @@ const Header = () => {
                   to="/Dashboard"
                   className="nav-link"
                   style={({ isActive }) => ({
-                    color: isActive ? "orange" : "white",
+                    color: isActive ? "red" : "white",
                   })}
                 >
                   Feedback
@@ -42,7 +47,7 @@ const Header = () => {
                   to="/myprofile"
                   className="nav-link"
                   style={({ isActive }) => ({
-                    color: isActive ? "orange" : "white",
+                    color: isActive ? "red" : "white",
                   })}
                 >
                   My Profile
@@ -54,7 +59,7 @@ const Header = () => {
                   to="/contact"
                   className="nav-link"
                   style={({ isActive }) => ({
-                    color: isActive ? "orange" : "white",
+                    color: isActive ? "red" : "white",
                   })}
                 >
                   Contact Us
@@ -64,7 +69,7 @@ const Header = () => {
             <span className="navbar-text">
               <Link
                 to="/login"
-                onClick={() => localStorage.clear()}
+                onClick={handleLogout}
                 className="btn-sm btn-danger text-white text-decoration-none px-3 py-2 fw-normal"
               >
                 Logout
