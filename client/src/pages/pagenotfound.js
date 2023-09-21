@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./styles/Pagenotfound.css";
 import Logo from "../components/Logo";
+import Footer from "../privatecomponents/Footer";
 const Pagenotfound = () => {
   return (
     <>
@@ -13,6 +14,7 @@ const Pagenotfound = () => {
           Go Back
         </Link>
       </div>
+      <Footer />
     </>
   );
 };

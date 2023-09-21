@@ -9,7 +9,7 @@ const Header = () => {
   };
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark bg-blue">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark bg-blue p-3">
         <div className="container-fluid">
           <Link
             className="navbar-brand display-6 fw-bolder text-uppercase orange"

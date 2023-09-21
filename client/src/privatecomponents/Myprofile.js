@@ -5,6 +5,7 @@ import { Navigate } from "react-router-dom";
 import Header from "../headers/Header";
 import "./Myprofile.css";
 import Footer from "./Footer";
+import Spinner from "../components/Spinner";
 
 const Myprofile = () => {
   const [data, setData] = useState(null);
@@ -92,7 +93,7 @@ const Myprofile = () => {
             </div>
           </div>
         ) : (
-          <h1>Loading...</h1>
+          <Spinner />
         )}
       </div>
       <Footer />

@@ -4,6 +4,7 @@ import Header from "../headers/Header";
 import axios from "axios";
 import { BsLinkedin } from "react-icons/bs";
 import Footer from "./Footer";
+import Spinner from "../components/Spinner";
 
 const Contact = () => {
   const [supportteam, setSupportteam] = useState([]);
@@ -60,7 +61,7 @@ const Contact = () => {
               </div>
             ))
           ) : (
-            <h4>Loading...</h4>
+            <Spinner />
           )}
         </div>
       </section>

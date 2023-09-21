@@ -67,6 +67,7 @@ const FacultyReport = () => {
                     <th>Professionalism</th>
                     <th>Clarification of Doubts</th>
                     <th>Explanation with Examples</th>
+                    <th>Total Percentage</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -79,39 +80,54 @@ const FacultyReport = () => {
                       <td>{faculty.totalFeedbackCount}</td>
                       <td>
                         {faculty.totalSubjectKnowledgeCount} /{" "}
-                        {faculty.percentageSubjectKnowledge.toFixed(1)} %
+                        {faculty.percentageSubjectKnowledge.toFixed(2)}%
                       </td>
                       <td>
                         {faculty.totalCommunicationCount} /{" "}
-                        {faculty.percentageCommunication.toFixed(1)} %
+                        {faculty.percentageCommunication.toFixed(2)}%
                       </td>
                       <td>
                         {faculty.totalPunctualityCount}/{" "}
-                        {faculty.percentagePunctuality.toFixed(1)} %
+                        {faculty.percentagePunctuality.toFixed(2)}%
                       </td>
                       <td>
                         {faculty.totalControlOverTheClass}/{" "}
-                        {faculty.percentageControlOverTheClass.toFixed(1)} %
+                        {faculty.percentageControlOverTheClass.toFixed(2)}%
                       </td>
                       <td>
                         {faculty.totalAudibility}/{" "}
-                        {faculty.percentageAudibility.toFixed(1)} %
+                        {faculty.percentageAudibility.toFixed(2)}%
                       </td>
                       <td>
                         {faculty.totalProfessionalism}/{" "}
-                        {faculty.percentageProfessionalism.toFixed(1)} %
+                        {faculty.percentageProfessionalism.toFixed(2)}%
                       </td>
                       <td>
                         {faculty.totalContentOfLecture}/{" "}
-                        {faculty.percentageContentOfLecture.toFixed(1)} %
+                        {faculty.percentageContentOfLecture.toFixed(2)}%
                       </td>
                       <td>
                         {faculty.totalClarificationOfDoubts}/{" "}
-                        {faculty.percentageClarificationOfDoubts.toFixed(1)} %
+                        {faculty.percentageClarificationOfDoubts.toFixed(2)}%
                       </td>
                       <td>
                         {faculty.totalExplanationWithExamples}/{" "}
-                        {faculty.percentageExplanationWithExamples.toFixed(1)} %
+                        {faculty.percentageExplanationWithExamples.toFixed(2)}%
+                      </td>
+                      <td>
+                        {(
+                          (faculty.percentageExplanationWithExamples +
+                            faculty.percentageClarificationOfDoubts +
+                            faculty.percentageContentOfLecture +
+                            faculty.percentageProfessionalism +
+                            faculty.percentageAudibility +
+                            faculty.percentageControlOverTheClass +
+                            faculty.percentagePunctuality +
+                            faculty.percentageCommunication +
+                            faculty.percentageSubjectKnowledge) /
+                          10
+                        ).toFixed(2)}
+                        %
                       </td>
                     </tr>
                   ))}

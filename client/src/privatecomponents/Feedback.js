@@ -44,7 +44,7 @@ const Feedback = () => {
   } = rating;
 
   useEffect(() => {
-    console.log(localStorage.getItem("dept"));
+    // console.log(localStorage.getItem("dept"));
     axios
       .get(`${process.env.REACT_APP_API}/checkrelation/${tid}`, {
         headers: {
@@ -107,7 +107,7 @@ const Feedback = () => {
     <div>
       <Header />
 
-      <section className="container my-3 mt-5">
+      <section className="container my-3 mt-5 min-vh-100">
         <div className="profiles">
           <center>
             <img
