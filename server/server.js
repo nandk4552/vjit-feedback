@@ -6,7 +6,7 @@ const middleware = require("./middleware");
 const dotenv = require("dotenv");
 const sendEmail = require("./sendmail");
 const crypto = require("crypto");
-
+const pdfRoutes = require("./routes/pdfRoutes");
 ////
 
 const users = require("./usermodel"); //students in college
@@ -16,6 +16,7 @@ const teachersmodel = require("./teachersmodel");
 const feedbackmodel = require("./feedbackmodel");
 const supportteammodel = require("./supportteammodel");
 const teachersmodelOE = require("./teachersmodelOE");
+const adminAuth = require("./middlewares/adminAuth");
 
 const app = express();
 
@@ -37,7 +38,8 @@ const connectDB = async () => {
 };
 
 app.use(express.json());
-app.use(cors({ origin: "*" }));
+app.use(cors());
+app.use(pdfRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello to VJIT Feedback API 16:46 - May 14 2023 ");
@@ -204,110 +206,7 @@ app.get("/allfeedbacks", middleware, async (req, res) => {
     return res.status(500).send("allfeedbacks Server Error");
   }
 });
-
-app.get("/faculty-report", middleware, async (req, res) => {
-  try {
-    // Fetch faculty feedback data from the database
-    const facultyFeedbackData = await feedbackmodel.find(
-      {},
-      "teacherName subject subjectKnowledge communication presentationSkills punctuality controlOverTheClass audibility professionalism contentOfLecture clarificationOfDoubts explanationWithExamples Comment"
-    );
-    // Calculate total feedback and percentage for each question/category
-    const facultyReport = facultyFeedbackData.map((feedback) => {
-      const totalFeedback = Object.keys(feedback._doc).reduce((total, key) => {
-        if (key !== "teacherName" && key !== "subject" && key !== "Comment") {
-          total += parseInt(feedback._doc[key]); // Convert the value to an integer
-        }
-        return total;
-      }, 0);
-
-      const maxPossibleScore = 10; // Assuming each question has a maximum score of 10
-      const percentage =
-        (totalFeedback /
-          (maxPossibleScore * Object.keys(feedback._doc).length - 3)) *
-        100;
-      return {
-        facultyName: feedback.teacherName, // Include the faculty name
-        subject: feedback.subject,
-        totalFeedback,
-        percentage, // Assuming each question has a maximum score of 10
-        subjectKnowledge: (parseInt(feedback._doc.subjectKnowledge) || 0) + "%", // Add '%' to the end of each percentage
-        communication: (parseInt(feedback._doc.communication) || 0) + "%",
-        presentationSkills:
-          (parseInt(feedback._doc.presentationSkills) || 0) + "%",
-        punctuality: (parseInt(feedback._doc.punctuality) || 0) + "%",
-        controlOverTheClass:
-          (parseInt(feedback._doc.controlOverTheClass) || 0) + "%",
-        audibility: (parseInt(feedback._doc.audibility) || 0) + "%",
-        professionalism: (parseInt(feedback._doc.professionalism) || 0) + "%",
-        contentOfLecture: (parseInt(feedback._doc.contentOfLecture) || 0) + "%",
-        clarificationOfDoubts:
-          (parseInt(feedback._doc.clarificationOfDoubts) || 0) + "%",
-        explanationWithExamples:
-          (parseInt(feedback._doc.explanationWithExamples) || 0) + "%",
-      };
-    });
-    res.json(facultyReport);
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-app.get("/total-feedback-count-per-teacher", async (req, res) => {
-  try {
-    const result = await feedbackmodel.aggregate([
-      {
-        $group: {
-          _id: "$teacherName", // Group by teacherName
-          totalFeedbackCount: { $sum: 1 }, // Count the feedback records
-        },
-      },
-    ]);
-    res.json(result);
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-// app.get("/subject-knowledge-count-per-teacher", async (req, res) => {
-//   try {
-//     // Use Mongoose aggregation to group and calculate total count and percentage of subjectKnowledge by teacherName
-//     const result = await feedbackmodel.aggregate([
-//       {
-//         $group: {
-//           _id: "$teacherName", // Group by teacherName
-//           totalSubjectKnowledgeCount: {
-//             $sum: {
-//               $toInt: "$subjectKnowledge", // Convert subjectKnowledge to integer
-//             },
-//           },
-//           totalFeedbackCount: { $sum: 1 }, // Count the feedback records
-//         },
-//       },
-//       {
-//         $project: {
-//           teacherName: "$_id",
-//           _id: 0,
-//           totalSubjectKnowledgeCount: 1,
-//           percentageSubjectKnowledge: {
-//             $multiply: [
-//               {
-//                 $divide: ["$totalSubjectKnowledgeCount", "$totalFeedbackCount"],
-//               },
-//               100,
-//             ],
-//           },
-//         },
-//       },
-//     ]);
-
-//     // The result will contain an array of objects, each representing a teacher's total subjectKnowledge count and percentage
-//     res.json(result);
-//   } catch (error) {
-//     console.error("Error:", error);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// });
+// faculty report
 app.get("/count-and-percentage-per-teacher", middleware, async (req, res) => {
   try {
     // Use Mongoose aggregation to group and calculate total count and percentage of subjectKnowledge by teacherName
@@ -318,6 +217,7 @@ app.get("/count-and-percentage-per-teacher", middleware, async (req, res) => {
             teacherName: "$teacherName", // Group by teacherName
             studentclass: "$studentclass", // Group by branch
             subject: "$subject", // Group by subject
+            teacheremail: "$teacheremail",
           },
 
           totalSubjectKnowledgeCount: {
@@ -375,10 +275,11 @@ app.get("/count-and-percentage-per-teacher", middleware, async (req, res) => {
       },
       {
         $project: {
+          _id: 0,
           teacherName: "$_id.teacherName",
           studentclass: "$_id.studentclass",
           subject: "$_id.subject",
-          _id: 0,
+          teacheremail: "$_id.teacheremail",
           totalSubjectKnowledgeCount: 1,
           totalCommunicationCount: 1,
           totalPresentationSkillsCount: 1,
@@ -618,14 +519,15 @@ app.post("/verifyadminlogin", async (req, res) => {
     const { username, passwordv } = req.body;
     const exist = await adminloginmodel.findOne({ username });
     if (!exist) {
-      return res.status(200).send("failure");
+      return res.status(200).send("Invalid Credentials");
     }
     if (exist.password !== passwordv) {
-      return res.status(200).send("failure");
+      return res.status(200).send("Invalid Credentials");
     }
     let payload = {
       user: {
         id: exist.id,
+        role: "admin",
       },
     };
     jwt.sign(payload, "jwtPassword", { expiresIn: 360000000 }, (err, token) => {
@@ -634,10 +536,9 @@ app.post("/verifyadminlogin", async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(500).send("verifyadminlogin Server Error ");
+    return res.status(500).send("verify adminlogin Server Error ");
   }
 });
-/////////////
 
 // // // Teachers -- -- --
 app.post("/comment/:subject", middleware, async (req, res) => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Header from "../headers/Header";
 import "./Dashboard.css";
@@ -8,6 +8,7 @@ import Footer from "./Footer";
 
 const Feedback = () => {
   const { tname, tid } = useParams();
+  const navigate = useNavigate();
 
   const [data, setData] = useState([]);
   const [matched, setMatched] = useState(false);
@@ -96,7 +97,9 @@ const Feedback = () => {
   };
 
   if (navi) {
-    return <Navigate to="/Dashboard" />;
+    // return <Navigate to="/Dashboard" />;
+    navigate("/Dashboard", { replace: true });
+    return null;
   }
 
   const Handler = (e) => {

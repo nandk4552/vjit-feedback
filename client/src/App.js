@@ -18,12 +18,11 @@ import Feedback2 from "./privatecomponents/Feedback2";
 import Feedback3 from "./privatecomponents/Feedback3";
 import Pagenotfound from "./pages/pagenotfound";
 import FacultyReport from "./privatecomponents/FacultyReport";
-import { Toaster } from 'react-hot-toast';
-
+import { Toaster } from "react-hot-toast";
 const App = () => {
   return (
     <div>
-      <Toaster/>
+      <Toaster />
       <BrowserRouter>
         <Routes>
           <Route path="/" exact element={<Home />} />
@@ -43,9 +42,9 @@ const App = () => {
           <Route path="/faculty-report" exact element={<FacultyReport />} />
           <Route path="/adminDashboard" exact element={<AdminDashboard />} />
           <Route path="/admincontact" exact element={<AdminContact />} />
-          
+
           {/* if non of the above routes doesnot work we go to pagenotfound component page */}
-          <Route path="/*" element={<Pagenotfound/>} />
+          <Route path="/*" element={<Pagenotfound />} />
         </Routes>
       </BrowserRouter>
     </div>

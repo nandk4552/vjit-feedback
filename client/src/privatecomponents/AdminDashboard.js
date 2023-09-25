@@ -121,6 +121,12 @@ const AdminDashboard = () => {
   if (!localStorage.getItem("token")) {
     return <Navigate to="/login" />;
   }
+  if (
+    !localStorage.getItem("role") ||
+    localStorage.getItem("role") !== "admin"
+  ) {
+    return <Navigate to="/login" />;
+  }
   const handleRefresh = () => {
     setIsLoading(true);
     setTeacher("");
@@ -224,7 +230,7 @@ const AdminDashboard = () => {
           <Spinner />
         ) : data.length >= 1 ? (
           <center>
-            <div class="table-responsive my-3">
+            <div className="table-responsive my-3">
               <table className="table" id="stocksData">
                 <thead>
                   <tr>

@@ -38,7 +38,7 @@ const AdminHeader = () => {
                     color: isActive ? "red" : "white",
                   })}
                 >
-                  Complete feedback info
+                  Overall feedbacks
                 </NavLink>
               </li>
               <li className="nav-item">

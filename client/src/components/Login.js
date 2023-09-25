@@ -23,6 +23,7 @@ const Login = () => {
     axios.post(`${process.env.REACT_APP_API}/login`, data).then((res) => {
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("role", "user");
         localStorage.setItem("dept", res.data.id);
         setAuth(true);
         toast.success("Login Successfully...!");

@@ -33,8 +33,10 @@ const Admin = () => {
         .then((res) => {
           if (res.data.token) {
             localStorage.setItem("token", res.data.token);
+            localStorage.setItem("role", "admin");
+            localStorage.setItem("email", username);
             setAllow(true);
-            toast.success("Login Success!");
+            toast.success("Login Successfully...!");
           } else {
             toast.error(res.data);
           }

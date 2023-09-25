@@ -1,7 +1,7 @@
 {
-  "name": "hackthon",
+  "name": "vjitfeedbackportal",
   "version": "1.0.0",
-  "description": "hub",
+  "description": "Students can give feedback on faculty after completion of thier respective semesters",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -10,13 +10,14 @@
     "both": "concurrently \"npm run server\" \"npm run client\" ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Tharun",
+  "author": "IT Department students",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
+    "html-pdf": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.2",
     "nodemailer": "^6.7.2",
