@@ -10,19 +10,19 @@ const users = new mongoose.Schema({
         type : String,
         required : true
     },
-    email :{
-        type : String,
-        required : true
-    },
+    // email :{
+    //     type : String,
+    //     required : true
+    // },
     oe:String,
     branch :{
         type : String,
         required : true
     },
-    mobile :{
-        type : String,
-        required : true,
-    },
+    // mobile :{
+    //     type : String,
+    //     required : true,
+    // },
     password : String,
     confirmpassword : String,
     resetPasswordToken:String,

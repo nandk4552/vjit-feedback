@@ -140,24 +140,17 @@ app.get("/findteacher/:id", async (req, res) => {
     return res.status(500).send("find teacher Server Error");
   }
 });
-
-// login for both students and alumini
 app.post("/login", async (req, res) => {
   try {
-    const { email, clgId } = req.body;
-    let exist = await users.findOne({ email: email.toLowerCase() });
+    const { collegeId, password } = req.body;
+    const exist = await users.findOne({ collegeId});
     if (!exist) {
-      exist = await users.findOne({ email: email });
+      return res.status(200).send(
+        "roll number doesn't exist contact admin"
+     );
     }
-    if (!exist) {
-      return res
-        .status(200)
-        .send(
-          "this email is not registered plz do contact respected faculty to get your correct email"
-        );
-    }
-    if (exist.collegeId !== clgId) {
-      return res.status(200).send("collegeId doesnt match with email");
+    if (exist.password !== password) {
+      return res.status(200).send("Invalid Credentials");
     }
     let payload = {
       user: {
@@ -173,6 +166,39 @@ app.post("/login", async (req, res) => {
     return res.status(500).send("login Server Error");
   }
 });
+
+// login for both students and alumini
+// app.post("/login", async (req, res) => {
+//   try {
+//     const { email, clgId } = req.body;
+//     let exist = await users.findOne({ email: email.toLowerCase() });
+//     if (!exist) {
+//       exist = await users.findOne({ email: email });
+//     }
+//     if (!exist) {
+//       return res
+//         .status(200)
+//         .send(
+//           "this email is not registered plz do contact respected faculty to get your correct email"
+//         );
+//     }
+//     if (exist.collegeId !== clgId) {
+//       return res.status(200).send("collegeId doesnt match with email");
+//     }
+//     let payload = {
+//       user: {
+//         id: exist.id,
+//       },
+//     };
+//     jwt.sign(payload, "jwtPassword", { expiresIn: 360000000 }, (err, token) => {
+//       if (err) throw err;
+//       return res.json({ token: token, id: exist.branch });
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     return res.status(500).send("login Server Error");
+//   }
+// });
 
 //loggined user info
 app.get("/myprofile", middleware, async (req, res) => {
@@ -395,7 +421,7 @@ app.get("/nooftotalfeedbacks", middleware, async (req, res) => {
     return res.status(200).json(exist);
   } catch (err) {
     console.log(err);
-    return res.status(500).send("nooftotalfeedbacks Server Error");
+    return res.status(500).send("no of total feedbacks Server Error");
   }
 });
 

@@ -74,14 +74,6 @@ const Myprofile = () => {
                 <span className="fw-bold app-red">Branch:</span>
                 {data.branch}
               </p>
-              <p className="card-text fs-5 ">
-                <span className="fw-bold app-red">Email:</span>
-                {data.email}
-              </p>
-              <p className="card-text fs-5 ">
-                <span className="fw-bold app-red">Mobile:</span>
-                {data.mobile}
-              </p>
               <h5>
                 Number of feedbacks exists :{" "}
                 <span className="fs-2 fw-bolder ">{total - given}</span>

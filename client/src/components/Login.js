@@ -9,10 +9,10 @@ import Logo from "./Logo";
 const Login = () => {
   const [auth, setAuth] = useState(false);
   const [data, seData] = useState({
-    email: "",
-    clgId: "",
+    collegeId: "",
+    password: "",
   });
-  const { email, clgId } = data;
+  const {  collegeId, password } = data;
 
   const changeHandler = (e) => {
     seData({ ...data, [e.target.name]: e.target.value });
@@ -40,6 +40,7 @@ const Login = () => {
   if (localStorage.getItem("token")) {
     return <Navigate to="/dashboard" />;
   }
+  console.log(data);
   return (
     <div className="con">
       <Logo />
@@ -61,26 +62,28 @@ const Login = () => {
             <b>Sign into feedback portal</b>
           </p>
           <form onSubmit={submitHandler} className="container">
+            
             <input
               className="form-control-lg mb-1 border"
               style={{ width: "60%" }}
-              type="email"
-              placeholder="Enter email"
-              name="email"
-              value={email}
-              onChange={changeHandler}
-            />
-            <br />
-            <br />
-            <input
-              className="form-control-lg mb-1 border"
-              style={{ width: "60%" }}
-              type="clgId"
+              type="collegeId"
               placeholder="Enter rollno / collegeId"
-              name="clgId"
-              value={clgId}
+              name="collegeId"
+              value={collegeId}
               onChange={changeHandler}
             />
+            <br />
+            <br />
+            <input
+              className="form-control-lg mb-1 border"
+              style={{ width: "60%" }}
+              type="password"
+              placeholder="Enter password"
+              name="password"
+              value={password}
+              onChange={changeHandler}
+            />
+            
             <br />
             <br />
             <input

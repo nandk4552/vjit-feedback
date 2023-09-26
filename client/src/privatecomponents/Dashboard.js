@@ -71,21 +71,27 @@ const Dashboard = () => {
                 <div className="col-md-4" key={index}>
                   <div className="card shadow p-2" style={{ width: "20rem" }}>
                     <img
-                      src="https://cdn.pixabay.com/photo/2016/03/23/22/26/user-1275780_960_720.png"
+                      src="https://ik.imagekit.io/fhe9c5aen/VJIT_feedback_form/A_5sZqpR7Lz.png?updatedAt=1695711150847"
                       className="card-img-top"
                       alt="..."
                     />
                     <div className="card-body">
                       <h4 className="card-title"> {profile.teacherName}</h4>
-                      <p>
+                      {/* <p>
                         <span className="fw-bold text-danger">Mobile No: </span>
                         {profile.teachermob}
-                      </p>
-                      <p>
+                      </p> */}
+                      {/* <p>
                         <span className="fw-bold text-danger text-truncate">
                           Email:{" "}
                         </span>
                         {profile.teacheremail}
+                      </p> */}
+                       <p>
+                        <span className="fw-bold text-danger text-truncate">
+                          Department:{" "}
+                        </span>
+                        {profile.teacherDepartment}
                       </p>
                       <p className="card-text fw-bold">
                         <span className="fw-bold text-danger">Subject: </span>
