@@ -18,14 +18,17 @@ const Home = () => {
               VJIT feedback portal
             </h1>
             <p className="home-base text-secondary fw-bold">
-              create a student profile and feedback on your teachers
+              Register students can give feedback on your faculty
             </p>
             <Link to="/admin" className="btn btn-red">
               <RiAdminLine className="me-1" />
               Admin
             </Link>
             &nbsp;&nbsp;&nbsp;
-            <Link to="/login" className="  text-center btn btn-primary text-center bg-blue">
+            <Link
+              to="/login"
+              className="  text-center btn btn-primary text-center bg-blue"
+            >
               <BiUser className="me-1" />
               Student
             </Link>

@@ -12,7 +12,7 @@ const Login = () => {
     collegeId: "",
     password: "",
   });
-  const {  collegeId, password } = data;
+  const { collegeId, password } = data;
 
   const changeHandler = (e) => {
     seData({ ...data, [e.target.name]: e.target.value });
@@ -37,14 +37,15 @@ const Login = () => {
     return <Navigate to="/instructions" />;
   }
 
-  if (localStorage.getItem("token")) {
+  if (
+    localStorage.getItem("token") &&
+    localStorage.getItem("role") === "user"
+  ) {
     return <Navigate to="/dashboard" />;
   }
-  console.log(data);
   return (
     <div className="con">
       <Logo />
-      {/* <UserHeader /> */}
 
       <div className="box shadow">
         <section className="container">
@@ -62,7 +63,6 @@ const Login = () => {
             <b>Sign into feedback portal</b>
           </p>
           <form onSubmit={submitHandler} className="container">
-            
             <input
               className="form-control-lg mb-1 border"
               style={{ width: "60%" }}
@@ -83,7 +83,7 @@ const Login = () => {
               value={password}
               onChange={changeHandler}
             />
-            
+
             <br />
             <br />
             <input

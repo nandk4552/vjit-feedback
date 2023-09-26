@@ -8,6 +8,7 @@ import { saveAs } from "file-saver";
 import toast from "react-hot-toast";
 import { BiRefresh, BiSearchAlt2 } from "react-icons/bi";
 import { FaDownload } from "react-icons/fa";
+import { Navigate } from "react-router-dom";
 
 const FacultyReport = () => {
   const [facultyData, setFacultyData] = useState([]);
@@ -182,7 +183,12 @@ const FacultyReport = () => {
     toast.success("Refreshing...");
     setIsLoading(false);
   };
-
+  if (
+    !localStorage.getItem("role") ||
+    localStorage.getItem("role") !== "admin"
+  ) {
+    return <Navigate to="/login" />;
+  }
   return (
     <>
       <AdminHeader />

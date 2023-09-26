@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import "./Styles1.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 import vjitlogo from "./v1.png";
 
 const Instructions = () => {
   const [isChecked, setIsChecked] = useState(false);
-
+  if (
+    !localStorage.getItem("role") ||
+    localStorage.getItem("role") !== "user"
+  ) {
+    return <Navigate to="/login" />;
+  }
   return (
     <div className="background-style p-3">
       <div className="">

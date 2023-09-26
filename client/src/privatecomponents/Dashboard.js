@@ -48,11 +48,13 @@ const Dashboard = () => {
   };
 
   console.log(data);
-
-  if (!localStorage.getItem("token")) {
+  if (
+    !localStorage.getItem("token") ||
+    !localStorage.getItem("role") ||
+    localStorage.getItem("role") !== "user"
+  ) {
     return <Navigate to="/login" />;
   }
-
   return (
     <div>
       <Header />
@@ -77,17 +79,7 @@ const Dashboard = () => {
                     />
                     <div className="card-body">
                       <h4 className="card-title"> {profile.teacherName}</h4>
-                      {/* <p>
-                        <span className="fw-bold text-danger">Mobile No: </span>
-                        {profile.teachermob}
-                      </p> */}
-                      {/* <p>
-                        <span className="fw-bold text-danger text-truncate">
-                          Email:{" "}
-                        </span>
-                        {profile.teacheremail}
-                      </p> */}
-                       <p>
+                      <p className="card-text fw-bold">
                         <span className="fw-bold text-danger text-truncate">
                           Department:{" "}
                         </span>

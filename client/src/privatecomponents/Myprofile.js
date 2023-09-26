@@ -44,10 +44,13 @@ const Myprofile = () => {
       });
   }, []);
 
-  if (!localStorage.getItem("token")) {
+  if (
+    !localStorage.getItem("token") ||
+    !localStorage.getItem("role") ||
+    localStorage.getItem("role") !== "user"
+  ) {
     return <Navigate to="/login" />;
   }
-
   return (
     <div>
       <Header />
@@ -67,18 +70,22 @@ const Myprofile = () => {
             <div className="card-body">
               <h3 className="card-title fw-bold">{data.fullname}</h3>
               <p className="card-text fs-5">
-                <span className="fw-bold app-red">Roll No:</span>
+                <span className="fw-bold app-red">Roll No: </span>
                 {data.collegeId}
               </p>
               <p className="card-text fs-5 ">
-                <span className="fw-bold app-red">Branch:</span>
-                {data.branch}
+                <span className="fw-bold app-red">Year: </span>
+                {data.branch.split(" ")[0]} yr
               </p>
-              <h5>
+              <p className="card-text fs-5 ">
+                <span className="fw-bold app-red">Branch: </span>
+                {data.branch.split(" ")[1]} {data.branch.split(" ")[2]}
+              </p>
+              <h5 className="card-text fs-5">
                 Number of feedbacks exists :{" "}
                 <span className="fs-2 fw-bolder ">{total - given}</span>
               </h5>
-              <h5>
+              <h5 className="card-text fs-5">
                 Number of feedbacks given :{" "}
                 <span className="fs-2 fw-bolder ">{given}</span>
               </h5>

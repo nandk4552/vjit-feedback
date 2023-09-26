@@ -97,8 +97,8 @@ const Feedback = () => {
   };
 
   if (navi) {
-    // return <Navigate to="/Dashboard" />;
     navigate("/Dashboard", { replace: true });
+    window.location.reload();
     return null;
   }
 

@@ -5,6 +5,7 @@ import axios from "axios";
 import AdminFooter from "./Footer";
 import { BsLinkedin } from "react-icons/bs";
 import Spinner from "../components/Spinner";
+import { Navigate } from "react-router-dom";
 const AdminContact = () => {
   const [supportteam, setSupportteam] = useState([]);
 
@@ -13,7 +14,12 @@ const AdminContact = () => {
       .get(`${process.env.REACT_APP_API}/getsupportteam`)
       .then((res) => setSupportteam(res.data));
   }, []);
-
+  if (
+    !localStorage.getItem("role") ||
+    localStorage.getItem("role") !== "admin"
+  ) {
+    return <Navigate to="/login" />;
+  }
   return (
     <div>
       <AdminHeader />
