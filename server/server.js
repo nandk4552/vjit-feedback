@@ -8,7 +8,7 @@ const sendEmail = require("./sendmail");
 const crypto = require("crypto");
 const pdfRoutes = require("./routes/pdfRoutes");
 ////
-
+const path = require("path");
 const users = require("./usermodel"); //students in college
 const adminloginmodel = require("./adminloginmodel");
 const demomodel = require("./demo");
@@ -21,8 +21,14 @@ const adminAuth = require("./middlewares/adminAuth");
 const app = express();
 
 dotenv.config();
+
 const PORT = process.env.PORT || 5000;
 
+//* stativ files
+// app.use(express.static(path.join(__dirname, "../client", "build")));
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../client", "build", "index.html"));
+// });
 // mongoose.connect(process.env.CONNECTION_URL).then(
 //     ()=> console.log('Db connected..')
 // )
@@ -143,11 +149,9 @@ app.get("/findteacher/:id", async (req, res) => {
 app.post("/login", async (req, res) => {
   try {
     const { collegeId, password } = req.body;
-    const exist = await users.findOne({ collegeId});
+    const exist = await users.findOne({ collegeId });
     if (!exist) {
-      return res.status(200).send(
-        "roll number doesn't exist contact admin"
-     );
+      return res.status(200).send("roll number doesn't exist contact admin");
     }
     if (exist.password !== password) {
       return res.status(200).send("Invalid Credentials");
