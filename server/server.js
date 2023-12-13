@@ -42,9 +42,14 @@ const connectDB = async () => {
     process.exit(1);
   }
 };
-
+const corsOptions = {
+  origin: "*", // Allow requests from any origin
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
 app.use(express.json());
-app.use(cors({ origin: "*" }));
+app.use(cors(corsOptions));
 app.use(pdfRoutes);
 
 app.get("/", (req, res) => {
