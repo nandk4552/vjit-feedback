@@ -44,7 +44,7 @@ const connectDB = async () => {
 };
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(pdfRoutes);
 
 app.get("/", (req, res) => {
