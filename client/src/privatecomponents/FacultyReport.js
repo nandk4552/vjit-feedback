@@ -27,7 +27,7 @@ const FacultyReport = () => {
         },
       })
       .then((res) => {
-        setFacultyData(res.data);
+        setFacultyData(res?.data);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -42,7 +42,6 @@ const FacultyReport = () => {
   const handleDownloadPDF = async (faculty) => {
     // const email = faculty.teacheremail
     // const email = localStorage.getItem("email");
-    const email = "kcpd996@gmail.com";
     const data = {
       teacherName: faculty.teacherName,
       subject: faculty.subject,
@@ -87,15 +86,7 @@ const FacultyReport = () => {
             })
             .then((res) => {
               const pdfBlob = new Blob([res.data], { type: "application/pdf" });
-              saveAs(pdfBlob, "facultyReport.pdf");
-            })
-            .then(async () => {
-              await axios
-                .post(`${process.env.REACT_APP_API}/sendpdf`, { email })
-                .then((res) => {
-                  console.log(res);
-                  toast.success(res.data);
-                });
+              saveAs(pdfBlob, `facultyReport.pdf`);
             });
         });
     } catch (error) {
@@ -114,21 +105,21 @@ const FacultyReport = () => {
 
     if (teacher && !deptsec && !subj) {
       setFacultyData(
-        facultyData.filter((profile) =>
+        facultyData?.filter((profile) =>
           profile.teacherName.toLowerCase().includes(teacher1)
         )
       );
     }
     if (!teacher && deptsec && !subj) {
       setFacultyData(
-        facultyData.filter((profile) =>
+        facultyData?.filter((profile) =>
           profile.studentclass.toLowerCase().includes(deptsec1)
         )
       );
     }
     if (!teacher && !deptsec && subj) {
       setFacultyData(
-        facultyData.filter((profile) =>
+        facultyData?.filter((profile) =>
           profile.subject.toLowerCase().includes(subj1)
         )
       );
@@ -136,7 +127,7 @@ const FacultyReport = () => {
     // for 2 values search
     if (teacher && deptsec && !subj) {
       setFacultyData(
-        facultyData.filter(
+        facultyData?.filter(
           (profile) =>
             profile.teacherName.toLowerCase().includes(teacher1) &&
             profile.studentclass.toLowerCase().includes(deptsec1)
@@ -146,7 +137,7 @@ const FacultyReport = () => {
 
     if (!teacher && deptsec && subj) {
       setFacultyData(
-        facultyData.filter(
+        facultyData?.filter(
           (profile) =>
             profile.studentclass.toLowerCase().includes(deptsec1) &&
             profile.subject.toLowerCase().includes(subj1)
@@ -155,7 +146,7 @@ const FacultyReport = () => {
     }
     if (teacher && !deptsec && subj) {
       setFacultyData(
-        facultyData.filter(
+        facultyData?.filter(
           (profile) =>
             profile.teacherName.toLowerCase().includes(teacher1) &&
             profile.subject.toLowerCase().includes(subj1)
@@ -165,7 +156,7 @@ const FacultyReport = () => {
     // search for 3 values
     if (teacher && deptsec && subj) {
       setFacultyData(
-        facultyData.filter(
+        facultyData?.filter(
           (profile) =>
             profile.teacherName.toLowerCase().includes(teacher1) &&
             profile.subject.toLowerCase().includes(subj1) &&
@@ -251,7 +242,7 @@ const FacultyReport = () => {
           </form>
           <br />
           {/* Add this button */}
-          {facultyData.length >= 1 && (
+          {facultyData?.length >= 1 && (
             <ReactHTMLTableToExcel
               className="btn btn-success btn-sm"
               table="facultyReportData"
@@ -263,7 +254,7 @@ const FacultyReport = () => {
 
           {isLoading ? (
             <Spinner />
-          ) : facultyData.length >= 1 ? (
+          ) : facultyData?.length >= 1 ? (
             <div className="table-responsive my-3">
               <table className="table" id="facultyReportData">
                 <thead>
@@ -289,7 +280,7 @@ const FacultyReport = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {facultyData.map((faculty, index) => (
+                  {facultyData?.map((faculty, index) => (
                     <tr key={index}>
                       <td>{(index += 1)}</td>
                       <td>

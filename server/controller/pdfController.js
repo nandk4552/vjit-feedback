@@ -1,4 +1,4 @@
-const pdf = require("html-pdf");
+const puppeteer = require("puppeteer");
 const path = require("path");
 const pdftemplate = require("../documents/documents");
 const nodemailer = require("nodemailer");
@@ -7,21 +7,34 @@ const env = require("dotenv");
 env.config();
 
 //** create faculty pdf report */
-exports.createpdf = (req, res) => {
-  pdf
-    .create(pdftemplate(req.body, {}), { timeout: 20000 })
-    .toFile("facultyReport.pdf", (err) => {
-      if (err) {
-        console.log(err);
-      }
-      res.send("faculty report pdf generated");
+exports.createpdf = async (req, res) => {
+  try {
+    const browser = await puppeteer.launch({ headless: "new" });
+    const page = await browser.newPage();
+
+    // Generate HTML content for the PDF using your pdftemplate function
+    const content = pdftemplate(req.body, {});
+
+    await page.setContent(content);
+
+    // Generate PDF
+    await page.pdf({
+      path: path.join(__dirname, "..", `facultyReport.pdf`), // Include faculty name in the PDF filename
+      format: "A4",
     });
+
+    await browser.close();
+
+    res.send("Faculty report PDF generated");
+  } catch (err) {
+    console.error("Error in creating PDF", err);
+    res.status(500).send("Internal Server Error");
+  }
 };
 
 //** Fetch faculty pdf report */
 exports.fetchpdf = (req, res) => {
   const pdfPath = path.join(__dirname, "..", "facultyReport.pdf");
-
   res.sendFile(pdfPath);
 };
 
