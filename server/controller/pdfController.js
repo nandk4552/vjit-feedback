@@ -15,6 +15,8 @@ exports.createpdf = async (req, res) => {
         "--disable-web-security",
         "--disable-features=IsolateOrigins",
         "--disable-site-isolation-trials",
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
       ],
     });
     const page = await browser.newPage();
