@@ -9,7 +9,15 @@ env.config();
 //** create faculty pdf report */
 exports.createpdf = async (req, res) => {
   try {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      headless: true,
+      devtools: true,
+      args: [
+        "--disable-web-security",
+        "--disable-features=IsolateOrigins",
+        "--disable-site-isolation-trials",
+      ],
+    });
     const page = await browser.newPage();
 
     // Generate HTML content for the PDF using your pdftemplate function
