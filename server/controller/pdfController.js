@@ -10,8 +10,7 @@ env.config();
 exports.createpdf = async (req, res) => {
   try {
     const browser = await puppeteer.launch({
-      headless: true,
-      devtools: true,
+      headless: false,
       args: [
         "--disable-web-security",
         "--disable-features=IsolateOrigins",
